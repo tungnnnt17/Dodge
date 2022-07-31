@@ -7,14 +7,18 @@ func _ready():
 	randomize()
 	
 func game_over():
+	$Music.stop()
+	$DeathSound.play()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	
 func new_game():
+	$Music.play()
 	get_tree().call_group("mobs", "queue_free")
 	score = 0
 	$Player.start($StartPosition.position)
+#	$Player/CollisionShape2D.disabled = true
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get ready")
